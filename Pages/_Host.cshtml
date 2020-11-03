@@ -1,0 +1,93 @@
+﻿@page "/"
+@namespace BlazorApp2.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlazorApp2</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <app>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script>
+        var ddData = [
+            {
+                value: "GBP",
+                selected: false,
+                imageSrc: "https://i.imgur.com/XkuTj3B.png"
+            },
+            {
+                value: "USD",
+                selected: false,
+                imageSrc: "https://i.imgur.com/8ScLNnk.png"
+            },
+            {
+                value: "EUR",
+                selected: false,
+                imageSrc: "https://i.imgur.com/aDNdibj.png"
+            },
+            {
+                value: "RUB",
+                selected: false,
+                imageSrc: "https://i.imgur.com/kFAk2DX.png"
+            },
+            {
+                value: "PLN",
+                selected: false,
+                imageSrc: "https://i.imgur.com/kFAk2DX.png"
+            }
+        ];
+
+
+        $('#demo-htmlselect').ddslick({
+            data: ddData,
+            width: 300,
+            imagePosition: "left",
+            selectText: "Select your favorite social network",
+            onSelected: function (data) {
+                console.log(data);
+            }
+        });
+
+    </script>
+    <style>
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <script src="_framework/blazor.server.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
+</body>
+</html>
