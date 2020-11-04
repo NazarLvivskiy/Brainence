@@ -30,6 +30,15 @@ namespace BlazorApp2.Data
             return context.Histories.ToList();
         }
 
+        public List<ExchangeHistory> GET(string FromCurrency)
+        {
+            return context.Histories.ToList().FindAll(delegate (ExchangeHistory history)
+            {
+                return history.FromCurrency == FromCurrency;
+            }
+            );
+        }
+
         public void POST(ExchangeHistory exchangeHistory)
         {
             context.Histories.Add(exchangeHistory);
@@ -42,9 +51,36 @@ namespace BlazorApp2.Data
             Save();
         }
 
+       
+
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public List<ExchangeHistory> SortByFromCurrency()
+        {
+            return context.Histories.OrderBy(h => h.FromCurrency).ToList();
+        }
+
+        public List<ExchangeHistory> SortByFromAmount()
+        {
+            return context.Histories.OrderBy(h => h.FromAmount).ToList();
+        }
+
+        public List<ExchangeHistory> SortByToCurrency()
+        {
+            return context.Histories.OrderBy(h => h.ToCurrency).ToList();
+        }
+
+        public List<ExchangeHistory> SortByToAmount()
+        {
+            return context.Histories.OrderBy(h => h.ToAmount).ToList();
+        }
+
+        public List<ExchangeHistory> SortByDate()
+        {
+            return context.Histories.OrderBy(h => h.Date).ToList();
         }
     }
 }

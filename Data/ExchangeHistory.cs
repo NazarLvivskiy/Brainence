@@ -29,5 +29,9 @@ namespace BlazorApp2.Data
             ToCurrency = _ToCurrency;
             Date = _Date;
         }
+        public ExchangeHistory()
+        {
+
+        }
     }
 }

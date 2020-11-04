@@ -1,0 +1,92 @@
+﻿@page "/history"
+
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Table</title>
+</head>
+<body>
+    <label>Seach only by FromCurrency</label>
+    <input type="text" @bind="SeachForName" />
+    <button class="btn btn-primary" @onclick="Seach">Seach</button>
+    <button class="btn btn-primary" @onclick="All">All</button>
+
+    @if (histories != null)
+    {
+        <br /><label>To filter, just click on(FromCurrency, FromAmount and etc)</label>
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th @onclick ="SortByFromCurrency">FromCurrency</th>
+                    <th @onclick ="SortByFromAmount">FromAmount</th>
+                    <th @onclick ="SortByToCurrency">ToCurrency</th>
+                    <th @onclick ="SortByToAmount">ToAmount</th>
+                    <th @onclick ="SortByDate">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in histories)
+                {
+                    <tr>
+                        <td>@item.FromCurrency</td>
+                        <td>@item.FromAmount</td>
+                        <td>@item.ToCurrency</td>
+                        <td>@item.ToAmount</td>
+                        <td>@item.Date</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+    @{
+        else
+        {
+            <p>Please click "All"😅😅😅</p>
+        }
+    }
+
+</body>
+</html>
+@code{
+    string SeachForName;
+
+    Repository repository = new Repository();
+
+    List<ExchangeHistory> histories;
+
+    void All()
+    {
+        histories = repository.GET();
+    }
+
+    void Seach()
+    {
+        histories = repository.GET(SeachForName);
+    }
+
+    void SortByFromCurrency()
+    {
+        histories = repository.SortByFromCurrency();
+    }
+
+    void SortByFromAmount()
+    {
+        histories = repository.SortByFromAmount();
+    }
+
+    void SortByToCurrency()
+    {
+        histories = repository.SortByToCurrency();
+    }
+
+    void SortByToAmount()
+    {
+        histories = repository.SortByToAmount();
+    }
+
+    void SortByDate()
+    {
+        histories = repository.SortByDate();
+    }
+}

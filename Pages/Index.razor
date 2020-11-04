@@ -1,43 +1,66 @@
 ﻿@page "/"
-
-
-
-
 <input type="number" @bind="FromAmount"/>
-<select @bind="from">
-    <option value="USD">USD</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-    <option value="RUB">RUB</option>
-    <option value="PLN">PLN</option>
+<select  @bind="fromMoney">
+    <option @onclick="ToTrue" selected value="USD">USD</option>
+    <option @onclick="ToTrue" value="EUR">EUR</option>
+    <option @onclick="ToTrue" value="GBP">GBP</option>
+    <option @onclick="ToTrue" value="RUB">RUB</option>
+    <option @onclick="ToTrue" value="PLN">PLN</option>
 </select>
 
-<input type="number" name="out" value="" />
-<select @bind="to">
-    <option value="USD">USD</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP">GBP</option>
-    <option value="RUB">RUB</option>
-    <option value="PLN">PLN</option>
-</select>
+<button class="btn btn-primary" @onclick="Reverse">Reverse</button>
 
+<input type="number" @bind="ToAmount" />
+<select  @bind="toMoney">
+    <option @onclick="ToTrue" value="USD">USD</option>
+    <option @onclick="ToTrue" selected value="EUR">EUR</option>
+    <option @onclick="ToTrue"value="GBP">GBP</option>
+    <option @onclick="ToTrue" value="RUB">RUB</option>
+    <option @onclick="ToTrue" value="PLN">PLN</option>
+</select>
+<br />
 <button class="btn btn-primary" @onclick="Exchange">Exchange</button>
+
+<p hidden=@isHidden>1 @fromMoney = @coef @toMoney</p>
 
 
 
 @code {
     private decimal FromAmount;
 
+    private bool isHidden = true;
+
     private decimal ToAmount;
 
-    private string from;
+    private string fromMoney;
 
-    private string to;
+    private string toMoney;
+
+    private decimal coef;
 
     private void Exchange()
     {
         BlazorApp2.Data.ExchangeRateTo exchange = new BlazorApp2.Data.ExchangeRateTo();
-        ToAmount = exchange.GetMoneyTo(from, to, FromAmount);
+        ToAmount = exchange.GetMoneyTo(fromMoney, toMoney, FromAmount, ref coef);
+        isHidden = false;
+    }
+
+    private void ToTrue()
+    {
+        isHidden = true;
+    }
+
+    private void Reverse()
+    {
+        FromAmount = 0;
+
+        ToAmount = 0;
+
+        var tmp = fromMoney;
+
+        fromMoney = toMoney;
+
+        toMoney = tmp;
     }
 }
 

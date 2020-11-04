@@ -10,10 +10,14 @@ namespace BlazorApp2.Data
     {
         public DbSet<ExchangeHistory> Histories { get; set; }
 
-        public AppContext(DbContextOptions<AppContext> options): base(options)
+        public AppContext()
         {
             //Database.EnsureDeleted();
             Database.EnsureCreated();
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-8TNDF2C\SQLEXPRESS;Initial Catalog=ExchangeDb_1;Integrated Security=True;");
         }
     }
 }

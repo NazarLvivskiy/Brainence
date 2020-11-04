@@ -11,7 +11,19 @@ namespace BlazorApp2.Data
 
         ExchangeHistory GET(int id);
 
+        List<ExchangeHistory> GET(string FromCurrency);
+
         List<ExchangeHistory> GET();
+
+        public List<ExchangeHistory> SortByFromCurrency();
+
+        public List<ExchangeHistory> SortByFromAmount();
+
+        public List<ExchangeHistory> SortByToCurrency();
+
+        public List<ExchangeHistory> SortByToAmount();
+
+        public List<ExchangeHistory> SortByDate();
 
         void PUT(ExchangeHistory exchangeHistory);
 
